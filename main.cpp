@@ -2,54 +2,69 @@
 
 using namespace std;
 
-int Pocket[45] = { 0, };
 
-
-void Initialize();
-void Shuffle();
-void Pick();
+void Initialize(int* Pocket, int Size);
+void Shuffle(int* Pocket, int Size);
+void Pick(int* Pocket, int Size, int PickCount);
 
 
 int main()
 {
-	Initialize();
+	int Size = 0;
+	int PickCount = 0;
 
-	Shuffle();
+	cin >> Size;
+	cin >> PickCount;
 
-	Pick();
+	int* Pocket = new int[Size];
+
+	Initialize(Pocket, Size);
+
+	Shuffle(Pocket, Size);
+
+	Pick(Pocket, Size, PickCount);
+
+	//delete Pocket;
+	delete[] Pocket;
+	Pocket = nullptr;
 
 	return 0;
 }
 
-void Initialize()
+void Initialize(int* Pocket, int Size)
 {
 	srand((unsigned int)time(NULL));
 
-	for (int i = 0; i < 45; ++i)
+	for (int i = 0; i < Size; ++i)
 	{
 		Pocket[i] = i + 1;
 	}
 }
 
-void Shuffle()
+void Shuffle(int* Pocket, int Size)
 {
 	//Shuffle,, юсюг(rand)
 //[][][][]
-	for (int i = 0; i < 45 * 10; ++i)
+	for (int i = 0; i < Size * 10; ++i)
 	{
-		int FirstIndex = rand() % 45;
-		int SecondIndex = rand() % 45;
+		int FirstIndex = rand() % Size;
+		int SecondIndex = rand() % Size;
 
 		int Temp = Pocket[FirstIndex];
-		Pocket[FirstIndex] = Pocket[SecondIndex];
+		*(Pocket+FirstIndex) = Pocket[SecondIndex];
 		Pocket[SecondIndex] = Temp;
 	}
 }
 
-void Pick()
+void Pick(int* Pocket, int Size, int PickCount)
 {
+	if (Size < PickCount)
+	{
+		return;
+	}
+
 	//Pick
-	for (int i = 0; i < 6; ++i)
+	for (int i = 0; i < PickCount; ++i)
 	{
 		cout << Pocket[i] << ", ";
 	}
