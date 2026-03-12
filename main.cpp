@@ -1,27 +1,40 @@
 #include <iostream>
 
-
-
 using namespace std;
 
-typedef unsigned char			uint8;
+int Pocket[45] = { 0, };
 
-//c언어 int 사이즈 달라져서
+
+void Initialize();
+void Shuffle();
+void Pick();
+
 
 int main()
 {
-	int Pocket[45] = { 0, };
+	Initialize();
 
+	Shuffle();
+
+	Pick();
+
+	return 0;
+}
+
+void Initialize()
+{
 	srand((unsigned int)time(NULL));
 
-	//Initialize
 	for (int i = 0; i < 45; ++i)
 	{
 		Pocket[i] = i + 1;
 	}
+}
 
+void Shuffle()
+{
 	//Shuffle,, 임의(rand)
-	//[][][][]
+//[][][][]
 	for (int i = 0; i < 45 * 10; ++i)
 	{
 		int FirstIndex = rand() % 45;
@@ -31,14 +44,13 @@ int main()
 		Pocket[FirstIndex] = Pocket[SecondIndex];
 		Pocket[SecondIndex] = Temp;
 	}
+}
 
+void Pick()
+{
 	//Pick
 	for (int i = 0; i < 6; ++i)
 	{
 		cout << Pocket[i] << ", ";
 	}
-
-
-
-	return 0;
 }
