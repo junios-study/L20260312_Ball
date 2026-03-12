@@ -3,7 +3,7 @@
 using namespace std;
 
 
-void Initialize(int* Pocket, int Size);
+int* Initialize(int* Pocket, int Size);
 void Shuffle(int* Pocket, int Size);
 void Pick(int* Pocket, int Size, int PickCount);
 
@@ -16,29 +16,36 @@ int main()
 	cin >> Size;
 	cin >> PickCount;
 
-	int* Pocket = new int[Size];
+	int* Pocket = nullptr;
 
-	Initialize(Pocket, Size);
+	Pocket = Initialize(Pocket, Size);
 
 	Shuffle(Pocket, Size);
 
 	Pick(Pocket, Size, PickCount);
 
 	//delete Pocket;
-	delete[] Pocket;
-	Pocket = nullptr;
+	if (Pocket)
+	{
+		delete[] Pocket;
+		Pocket = nullptr;
+	}
 
 	return 0;
 }
 
-void Initialize(int* Pocket, int Size)
+int* Initialize(int* Pocket, int Size)
 {
 	srand((unsigned int)time(NULL));
+
+	Pocket = new int[Size];
 
 	for (int i = 0; i < Size; ++i)
 	{
 		Pocket[i] = i + 1;
 	}
+
+	return Pocket;
 }
 
 void Shuffle(int* Pocket, int Size)
